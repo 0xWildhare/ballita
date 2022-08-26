@@ -264,8 +264,8 @@ function App(props) {
         <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
         </Menu.Item>
-        
-      </Menu>*
+
+      </Menu>
 
       <Switch>
         <Route exact path="/">
