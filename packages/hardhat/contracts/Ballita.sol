@@ -144,6 +144,26 @@ contract Ballita is ERC1155, Ownable, VRFConsumerBaseV2 {
     );
   }
 
+  function aaadvance() public {
+    require(waitingForOracle, "pullball first");
+    bytes32 predictableRandom = keccak256(abi.encodePacked( block.timestamp ));
+    lastWinningNumber = uint256(predictableRandom) % topNumber +1;
+    Winnings storage w = winnings[previousEpoch];
+    w.winningNumber = lastWinningNumber;
+    uint numberOfWinners = bets[previousEpoch][w.winningNumber];
+    if(numberOfWinners != 0){
+      uint pot = address(this).balance - unclaimedPrizes;
+      uint charityPayment = ((pot * charityPercent) / 100);
+      pot = pot - charityPayment;
+      w.prize = (pot / numberOfWinners) - 1; //the -1 is for rounding errors
+      unclaimedPrizes += pot;
+      //charity only gets paid if there is a winner
+      charity.transfer(charityPayment);
+    }
+    waitingForOracle = false;
+    emit SetLastWinningNumber(lastWinningNumber);
+  }
+
   function fulfillRandomWords(
     uint256, // requestId
     uint256[] memory randomWords
@@ -170,7 +190,7 @@ contract Ballita is ERC1155, Ownable, VRFConsumerBaseV2 {
     require(block.timestamp > currentEpoch, "epoch not finished");
     require(!waitingForOracle, "waiting for oracle");
     if(anyLiveBets) {
-      _requestRandomWords();
+      //_requestRandomWords();
       previousEpoch = currentEpoch;
       anyLiveBets = false;
       lastWinningNumber = 0;
