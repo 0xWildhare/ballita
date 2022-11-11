@@ -1815,4 +1815,12 @@ module.exports = {
       },
     },
   },
+  5: { //goerli
+    contracts: {
+      Ballita: {
+        address: "0x1BCF689DC96DD0AAE716974e148abCa19DC8c039", // deployed by 0xWildhare 10/11/2022
+        abi: BallitaABI,
+      },
+    },
+  },
 };

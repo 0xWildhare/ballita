@@ -10,3 +10,162 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+button.ant-btn {
+    margin-right: 0px;
+}
+
+#fixed-game-panel {
+	position: fixed;
+    left: 0;
+    bottom: 90px;
+	width: 365px;
+	height: auto;
+	margin: 0 0 0 8px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+#last-round-winner-ball {
+    width: 100%;
+    padding-bottom: 60%;
+    box-sizing: border-box;
+    resize: horizontal;
+    position: relative;
+	background-image: url("themes/images/blank-white-bolita-ball.svg");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 0;
+}
+
+#last-round-winner-ball-number {
+    font-size: 400%;
+    font-family: Monaco, "serif";
+    color: black;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    z-index: 1;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+
+#proceeds-benefit, #last-round-winner, #next-drawing {
+	display: block; 
+    word-wrap: normal;
+    width: 100%;
+}
+
+#proceeds-benefit span {
+}
+
+#last-round-winner {
+}
+
+#next-drawing {
+}
+
+#place-your-bet {
+	background-color: darkred;
+}
+
+#pull-ball {
+    position: relative;
+    display: block;
+	background-color: darkgoldenrod;
+    z-index: 1;
+}
+
+#place-your-bet, #pull-ball {
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+	padding-top: 100px;
+	display: block;
+	position: relative;
+    z-index: -1;
+}
+
+#scroll {
+    top: 0;
+	position: absolute;
+    z-index: -1;
+}
+
+#layer-intro {
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+	padding: 0;
+	display: block;
+    position: relative;
+    background-color: black;
+	background-image: url("themes/images/speakeasy_door_night.jpg");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+}
+
+html, body, .container {
+    scroll-snap-type: y mandatory;
+}
+
+.child {
+	display: block;
+	position: relative;
+    scroll-snap-align: start;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+#header-wrapper {
+    position: fixed;
+    display: flex;
+    width: auto;
+}
+#header-info {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    float: right;
+}
+
+span.ant-page-header-heading-title {
+    font-size: 200%;
+    position: relative;
+    display: block;
+}
+
+span.ant-page-header-heading-sub-title {
+    position: relative;
+    display: block;
+    font-size: 90%;
+}
+
+span.ant-page-header-heading-sub-title a {
+    color: rgba(255,255,255,0.35);
+}
+
+.ant-page-header-heading  span.anticon-info-circle {
+    margin: 25px 0 0 -12px;
+}
+
+div.ant-page-header-heading-left {
+    display: block;
+    align-content: space-around;
+    text-align: left;
+}
+
+span.anticon-info-circle {
+    font-size: 16px;
+    color: yellowgreen;
+    padding: 8px;
+}
+
+div#theme-switcher {
+    visibility: hidden;
+    display: block;
+}

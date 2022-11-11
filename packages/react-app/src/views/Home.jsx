@@ -43,8 +43,8 @@ console.log("rerender",readContracts);
     setCurrentEpoch(newCurrentEpoch);
     setPreviousEpoch(newPreviousEpoch);
   }, [advanceEvents]);
-  //console.log("📟 advance epoch events:", advanceEvents, advanceEvents.length);
-  //console.log("advanceEvents", advanceEvents, currentEpoch, previousEpoch);
+  console.log("📟 advance epoch events:", advanceEvents, advanceEvents.length);
+  console.log("advanceEvents", advanceEvents, currentEpoch, previousEpoch);
 
   const priceEvents = useEventListener(readContracts, "Ballita", "SetPrice", localProvider, 1);
   const [betPrice, setBetPrice] = useState(0);
@@ -99,7 +99,7 @@ console.log("rerender",readContracts);
   const nextDrawingTime = new Date(currentEpoch*1000);
 
   const countdown = currentEpoch - timestamp > 0 ? currentEpoch - timestamp : 0;
-  const nextDrawing = countdown <= 0 ? "Now!" : nextDrawingTime;
+  const nextDrawing = countdown <= 0 ? "now!" : nextDrawingTime;
 
   const transferSingleEvents = useEventListener(readContracts, "Ballita", "TransferSingle", localProvider, 1);
   console.log("transferSingleEvents", transferSingleEvents)
@@ -196,26 +196,41 @@ console.log("rerender",readContracts);
   console.log("winners", yourWinners);
 
   return (
+  <div>
+        <div id="fixed-game-panel" class="ant-btn ant-btn-round ant-btn-sm">
+          <div id="proceeds-benefit">
+              {charityPercent&&charityPercent.toNumber()}% of all proceeds benefit &nbsp;<br/><br/>
+            {charity?
+              <Address
+                address={charity}
+                ensProvider={mainnetProvider}
+                blockExplorer={blockExplorer}
+              /> :
+              <Spin />
+            }
+          </div>
+          <div id="last-round-winner">
+            Winning number from last round: &nbsp;
+              <div id="last-round-winner-ball">
+                  <div id="last-round-winner-ball-number">
+              {lastWinningNumberFormatted ? lastWinningNumberFormatted : <Spin />}
+                  </div>
+              </div>
+          </div>
+          <div id="next-drawing">
+            A ball can be pulled for this round {nextDrawing.toString()} <br /> (in {countdown} seconds)
+          </div>
+      </div>
+  <div id="scroll" class="container">
+    <section id="first-section" class="child">
     <div>
-      <div style={{marginTop: 32}}>
-        <h1>charity address &nbsp;
-        {charity?
-          <Address
-            address={charity}
-            ensProvider={mainnetProvider}
-            blockExplorer={blockExplorer}
-          /> :
-          <Spin />
-        }
-         &nbsp; recieves {charityPercent&&charityPercent.toNumber()}% of winnings</h1>
-      </div>
-      <div style={{marginTop: 24}}>
-        <h2> Winning number from last round: &nbsp; {lastWinningNumberFormatted ? lastWinningNumberFormatted : <Spin />} </h2>
-      </div>
-      <div style={{marginTop: 16}}>
-        <h2> Next Drawing {nextDrawing.toString()} <br /> (in {countdown} seconds) </h2>
-      </div>
-      <div style={{marginTop: 16}}>
+        <div id="layer-intro">
+	    </div>
+
+    </div>
+    </section>
+    <section id="second-section" class="child">
+      <div id="place-your-bet">
         <Space>
           Place your bet ( pick a number 1  -{topNumberFormatted})
 
@@ -243,7 +258,9 @@ console.log("rerender",readContracts);
          each
         </Space>
       </div>
-      <div style={{margin: "auto", marginTop: 32}}>
+    </section>
+    <section id="third-section" class="child">
+      <div id="pull-ball">
         <Button
           type="primary"
           disabled={timestamp < currentEpoch}
@@ -258,9 +275,10 @@ console.log("rerender",readContracts);
          pull ball
        </Button>
       </div>
-
+    </section>
       {yourCollectibles.length?
-        <div style={{ width: 620, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
+    <section id="fourth-section" class="child">
+        <div id="your-open-bets" style={{ width: 620, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
           <h2>your open bets</h2>
           <List
             bordered
@@ -304,10 +322,12 @@ console.log("rerender",readContracts);
             }}
           />
         </div>
+    </section>
         : ""
       }
       {yourWinners.length?
-        <div style={{ width: 620, margin: "auto", marginTop: 32, paddingBottom: 150 }}>
+    <section id="fifth-section" class="child">
+        <div id="your-winners" style={{ width: 620, margin: "auto", marginTop: 32, paddingBottom: 150 }}>
           <h2>your winners</h2>
           <List
             bordered
@@ -353,11 +373,12 @@ console.log("rerender",readContracts);
             }}
           />
         </div>
+    </section>
         : ""
       }
 
-
-    </div>
+  </div>
+</div>
   );
 }
 
